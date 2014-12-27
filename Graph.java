@@ -10,11 +10,11 @@ public class Graph {
     LinkedList<Integer>[] adj;
 
     /**
-     * Creation d'un graphe vide avec <tt>V</tt> sommets sans arretes
-     * param V le nombre de sommet
+     * Creation d'un graphe vide avec V sommets sans aretes
+     * param V le nombre de nombres
      *
      * @throws java.lang.IllegalArgumentException
-     *          si <tt>V</tt> < 0
+     *          si V < 0
      */
     public Graph(int V) {
         if (V < 0) throw new IllegalArgumentException("Le nombre de sommets ne peut pas être négatif.");
