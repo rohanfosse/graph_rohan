@@ -17,7 +17,7 @@ public class Graph {
      *          si <tt>V</tt> < 0
      */
     public Graph(int V) {
-        if (V < 0) throw new IllegalArgumentException("Number of vertices must be non negative");
+        if (V < 0) throw new IllegalArgumentException("Le nombre de sommets ne peut pas être négatif.");
         this.V = V;
         this.E = 0;
         adj = (LinkedList<Integer>[]) new LinkedList[V];
@@ -184,7 +184,7 @@ public class Graph {
     /**
      * Retourne une estimation du diametre du graphe par l'heuristique de HABIB
      *
-     * @return un entier ( heuristique de Habib pour le diametre du graphe
+     * @return un entier (heuristique de Habib pour le diametre du graphe)
      */
     public int Habib() {
         int k, balise;
@@ -194,22 +194,14 @@ public class Graph {
         int x2 = this.eccentricity(x1)[0];
         int x3 = this.eccentricity(x2)[0];
         BreadthFirstPaths bfs = new BreadthFirstPaths(this, x2);
-        for (int x : bfs.pathTo(x3)) {
-            //System.out.print(x + " ");
-        }
-        //System.out.println();
-        //System.out.println(bfs.distTo(x3));
         if (bfs.distTo(x3) % 2 == 0) k = (int) (bfs.distTo(x3) / 2);
         else k = (int) ((bfs.distTo(x3) + 1) / 2);
         for (int x : bfs.pathTo(x3)) {
             if (balise <= k) {
-                //System.out.print(x + " ");
                 balise++;
                 x4 = x;
             }
         }
-        //System.out.println();
-        //System.out.println(x4);
         int x5 = this.eccentricity(x4)[0];
         int l = this.eccentricity(x5)[1];
         return l; // Affiche le résultat.
