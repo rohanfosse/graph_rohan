@@ -60,21 +60,24 @@ public class Graph {
             if (num_ligne == 1) this.V = Integer.parseInt(ligne);
             else arete.add(ligne);
         }
+        System.out.println("fini de compter");
         buff.close();
         //creation des listes d'adjacences
         adj = (LinkedList<Integer>[]) new LinkedList[V];
         for (int v = 0; v < this.V; v++) {
             adj[v] = new LinkedList<Integer>();
         }
+        System.out.println(arete.size());
+System.out.println("fini de créer !");
 
-
-        //remplissages des listes d'ajdacences
+        //remplissage des listes d'ajdacences
         for (int i = 0; i < arete.size(); i++) {
             String[] tab = new String[2];
             tab = (arete.get(i)).split(" ");
             this.addEdge(Integer.parseInt(tab[0]) - 1, Integer.parseInt(tab[1]) - 1);
+            System.out.println(i);
         }
-
+System.out.println("fini de remplir! ");
 
     }
 
@@ -89,9 +92,9 @@ public class Graph {
     }
 
     /**
-     * Retourne le nombre d'arretes du graphe
+     * Retourne le nombre d'aretes du graphe
      *
-     * @return le nombre d'arretes du graphe
+     * @return le nombre d'aretes du graphe
      */
     public int E() {
         return E;
@@ -104,7 +107,7 @@ public class Graph {
      */
     private void validateVertex(int v) {
         if (v < 0 || v >= V)
-            throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V - 1));
+            throw new IndexOutOfBoundsException("sommet " + v + " n'est pas entre 0 et " + (V - 1));
     }
 
     /**
@@ -139,11 +142,11 @@ public class Graph {
 
 
     /**
-     * Retourne l'exentricite du sommet <tt>v</tt> ainsi qu'un sommet ( le premier ) pour
+     * Retourne l'exentricite du sommet v ainsi qu'un sommet (le premier) pour
      * lequel cette distance est atteinte sous forme de tableau
      *
      * @param v le sommet
-     * @return un tableau 0=>sommet, 1=>exentricite pour un sommet <tt>v</tt>
+     * @return un tableau 0=>sommet, 1=>exentricite pour un sommet v
      */
 
     public int[] eccentricity(int v) {
@@ -158,9 +161,7 @@ public class Graph {
                 max = b;
                 pos = i;
             }
-            //System.out.println("distance entre "+i+" et "+v+" : "+bfs.distTo(v));
         }
-        //System.out.println("exentricite de " + v + " : " + max + " atteint pour " + pos);
         R[0] = pos;
         R[1] = max;
         return R;
@@ -169,8 +170,8 @@ public class Graph {
     /**
      * Retourne le diametre du graphe
      *
-     * @param v le sommet
-     * @return un entier ( le diametre du graphe)
+     *
+     * @return un entier (le diametre du graphe)
      */
     public int diametre() {
         int max = 0;
@@ -182,7 +183,7 @@ public class Graph {
     }
 
     /**
-     * Retourne une estimation du diametre du graphe par l'heuristique de HABIB
+     * Retourne une estimation du diametre du graphe par l'heuristique de Habib
      *
      * @return un entier (heuristique de Habib pour le diametre du graphe)
      */

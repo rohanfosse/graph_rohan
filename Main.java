@@ -11,6 +11,5 @@ public class Main {
         if (Methode.equals("e")) System.out.println(G.diametre());
         else if (Methode.equals("h")) System.out.println(G.Habib());
 
-
     }
 }

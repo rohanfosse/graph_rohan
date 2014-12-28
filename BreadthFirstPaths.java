@@ -11,8 +11,8 @@ public class BreadthFirstPaths {
     private int[] distTo;
 
     /**
-     * Calcule le plus court chemin entre le sommet d'origine <tt>s</tt>
-     * aet les autres sommet du graphe  <tt>G</tt>.
+     * Calcule le plus court chemin entre le sommet d'origine s
+     * aet les autres sommet du graphe  G
      *
      * @param G le graphe
      * @param s le sommet d'origine
@@ -48,7 +48,7 @@ public class BreadthFirstPaths {
 
     /**
      * @param v le sommet
-     * @return <tt>true</tt> isi il y a un chemin vers le sommet v et <tt>false </tt> sinon
+     * @return true si il y a un chemin vers le sommet v et false  sinon
      */
     public boolean hasPathTo(int v) {
         return marked[v];
@@ -56,7 +56,7 @@ public class BreadthFirstPaths {
 
     /**
      * @param v le sommet
-     * @return tle nombre de sommet du plus court chemi vers <t>v</t>
+     * @return  le nombre de sommet du plus court chemin     vers v
      */
     public int distTo(int v) {
         return distTo[v];
