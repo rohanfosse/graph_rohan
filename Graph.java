@@ -7,6 +7,7 @@ import java.util.LinkedList;
 public class Graph {
     private int V;
     private int E;
+    String[] tab = new String[2];
     LinkedList<Integer>[] adj;
 
     /**
@@ -57,29 +58,35 @@ public class Graph {
         String ligne;
         while ((ligne = buff.readLine()) != null) {
             num_ligne += 1;
-            if (num_ligne == 1) this.V = Integer.parseInt(ligne);
-            else arete.add(ligne);
+            if (num_ligne == 1) {
+                this.V = Integer.parseInt(ligne);
+                adj = (LinkedList<Integer>[]) new LinkedList[V];
+                for (int v = 0; v < this.V; v++) {
+                    adj[v] = new LinkedList<Integer>();
+                }
+            }
+            else
+            {
+                arete.add(ligne);
+                tab = ligne.split(" ");
+                this.addEdge(Integer.parseInt(tab[0]) - 1, Integer.parseInt(tab[1]) - 1);
+                if(num_ligne%1000==1) System.out.println(num_ligne);
+            }
         }
-        System.out.println("fini de compter");
         buff.close();
+        System.out.println(num_ligne);
         //creation des listes d'adjacences
-        adj = (LinkedList<Integer>[]) new LinkedList[V];
-        for (int v = 0; v < this.V; v++) {
-            adj[v] = new LinkedList<Integer>();
-        }
-        System.out.println(arete.size());
-System.out.println("fini de créer !");
 
-        //remplissage des listes d'ajdacences
-        for (int i = 0; i < arete.size(); i++) {
-            String[] tab = new String[2];
-            tab = (arete.get(i)).split(" ");
-            this.addEdge(Integer.parseInt(tab[0]) - 1, Integer.parseInt(tab[1]) - 1);
-            System.out.println(i);
         }
-System.out.println("fini de remplir! ");
 
-    }
+
+        //remplissages des listes d'ajdacences
+        /*for (int i = 0; i < arete.size(); i++) {
+
+
+
+        }*/
+
 
 
     /**
@@ -92,9 +99,9 @@ System.out.println("fini de remplir! ");
     }
 
     /**
-     * Retourne le nombre d'aretes du graphe
+     * Retourne le nombre d'arretes du graphe
      *
-     * @return le nombre d'aretes du graphe
+     * @return le nombre d'arretes du graphe
      */
     public int E() {
         return E;
@@ -107,7 +114,7 @@ System.out.println("fini de remplir! ");
      */
     private void validateVertex(int v) {
         if (v < 0 || v >= V)
-            throw new IndexOutOfBoundsException("sommet " + v + " n'est pas entre 0 et " + (V - 1));
+            throw new IndexOutOfBoundsException("vertex " + v + " is not between 0 and " + (V - 1));
     }
 
     /**
@@ -142,11 +149,11 @@ System.out.println("fini de remplir! ");
 
 
     /**
-     * Retourne l'exentricite du sommet v ainsi qu'un sommet (le premier) pour
+     * Retourne l'exentricite du sommet <tt>v</tt> ainsi qu'un sommet ( le premier ) pour
      * lequel cette distance est atteinte sous forme de tableau
      *
      * @param v le sommet
-     * @return un tableau 0=>sommet, 1=>exentricite pour un sommet v
+     * @return un tableau 0=>sommet, 1=>exentricite pour un sommet <tt>v</tt>
      */
 
     public int[] eccentricity(int v) {
@@ -161,7 +168,9 @@ System.out.println("fini de remplir! ");
                 max = b;
                 pos = i;
             }
+            //System.out.println("distance entre "+i+" et "+v+" : "+bfs.distTo(v));
         }
+        //System.out.println("exentricite de " + v + " : " + max + " atteint pour " + pos);
         R[0] = pos;
         R[1] = max;
         return R;
@@ -170,8 +179,8 @@ System.out.println("fini de remplir! ");
     /**
      * Retourne le diametre du graphe
      *
-     *
-     * @return un entier (le diametre du graphe)
+     * @param v le sommet
+     * @return un entier ( le diametre du graphe)
      */
     public int diametre() {
         int max = 0;
@@ -183,7 +192,7 @@ System.out.println("fini de remplir! ");
     }
 
     /**
-     * Retourne une estimation du diametre du graphe par l'heuristique de Habib
+     * Retourne une estimation du diametre du graphe par l'heuristique de HABIB
      *
      * @return un entier (heuristique de Habib pour le diametre du graphe)
      */
@@ -193,6 +202,7 @@ System.out.println("fini de remplir! ");
         int x1 = 0;
         balise = 0;
         int x2 = this.eccentricity(x1)[0];
+        System.out.println("exentricite 1");
         int x3 = this.eccentricity(x2)[0];
         BreadthFirstPaths bfs = new BreadthFirstPaths(this, x2);
         if (bfs.distTo(x3) % 2 == 0) k = (int) (bfs.distTo(x3) / 2);
